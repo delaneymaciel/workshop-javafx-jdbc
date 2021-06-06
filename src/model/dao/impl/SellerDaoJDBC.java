@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mysql.jdbc.Statement;
-import com.sun.net.httpserver.Authenticator.Result;
-import com.sun.source.doctree.StartElementTree;
 
 import db.DB;
 import db.DbException;
@@ -163,7 +161,8 @@ public class SellerDaoJDBC implements SellerDao{
 		obj.setName(rs.getString("Name"));
 		obj.setEmail(rs.getString("Email"));
 		obj.setBaseSalary(rs.getDouble("BaseSalary"));
-		obj.setBirthDate(rs.getDate("birthDate"));
+		//obj.setBirthDate(rs.getDate("birthDate")); neste caso ele pegaria a linha do SQL.date
+		obj.setBirthDate(new java.util.Date(rs.getTimestamp("BirthDate").getTime()));
 		obj.setDepartment(dep);
 		return obj;
 	}
